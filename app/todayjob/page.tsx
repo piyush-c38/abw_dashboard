@@ -1,81 +1,57 @@
+"use client";
+import {useState, useEffect} from "react";
+import axios from "axios";
 import {
     Table,
     TableBody,
-    TableCaption,
     TableCell,
     TableHead,
     TableHeader,
     TableRow,
 } from "@/components/ui/table"
 
-const invoices = [
-    {
-        invoice: "INV001",
-        paymentStatus: "Paid",
-        totalAmount: "$250.00",
-        paymentMethod: "Credit Card",
-    },
-    {
-        invoice: "INV002",
-        paymentStatus: "Pending",
-        totalAmount: "$150.00",
-        paymentMethod: "PayPal",
-    },
-    {
-        invoice: "INV003",
-        paymentStatus: "Unpaid",
-        totalAmount: "$350.00",
-        paymentMethod: "Bank Transfer",
-    },
-    {
-        invoice: "INV004",
-        paymentStatus: "Paid",
-        totalAmount: "$450.00",
-        paymentMethod: "Credit Card",
-    },
-    {
-        invoice: "INV005",
-        paymentStatus: "Paid",
-        totalAmount: "$550.00",
-        paymentMethod: "PayPal",
-    },
-    {
-        invoice: "INV006",
-        paymentStatus: "Pending",
-        totalAmount: "$200.00",
-        paymentMethod: "Bank Transfer",
-    },
-    {
-        invoice: "INV007",
-        paymentStatus: "Unpaid",
-        totalAmount: "$300.00",
-        paymentMethod: "Credit Card",
-    },
-]
-
 export default function TodayJob() {
+    const [data, setData] = useState([]);
+
+    const fetchData = async () => {
+        try {
+            const res = await axios.get("http://localhost:5000/api/latest-per-table");
+            setData(res.data);
+        } catch (err) {
+            console.error("Error fetching data:", err);
+        }
+    };
+
+    useEffect(() => {
+        fetchData();
+        const interval = setInterval(fetchData, 1000); // refresh every 1 sec
+        return () => clearInterval(interval);
+    }, []);
+
     return (
         <div className="flex w-screen h-screen justify-center items-center">
             <div className="bg-gray-50 w-2/3 p-4 rounded-xl">
                 <div>
-                    
+
                 </div>
                 <Table>
                     <TableHeader>
                         <TableRow>
-                            <TableHead className="w-[100px]">Invoice</TableHead>
-                            <TableHead>Status</TableHead>
-                            <TableHead>Method</TableHead>
-                            <TableHead className="text-right">Amount</TableHead>
+                            <TableHead className="w-[100px] text-center">Table ID</TableHead>
+                            <TableHead className="text-center">Current Job</TableHead>
+                            <TableHead className="text-center">Current Process</TableHead>
+                            <TableHead className="text-center">Product Count</TableHead>
+                            <TableHead className="text-center">Job Status</TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        {invoices.map((invoice) => (
-                            <TableRow key={invoice.invoice}>
-                                <TableCell className="font-medium">{invoice.invoice}</TableCell>
-                                <TableCell>{invoice.paymentStatus}</TableCell>
-                                <TableCell>{invoice.paymentMethod}</TableCell>
-                                <TableCell className="text-right">{invoice.totalAmount}</TableCell>
+                        {data.map((row:any) => (
+                            <TableRow key={row.id}>
+                                <TableCell className="text-center">{row.table_id}</TableCell>
+                                <TableCell className="text-center">{row.job_id}</TableCell>
+                                <TableCell className="text-center">{row.process_id}</TableCell>
+                                <TableCell className="text-center">{row.count}</TableCell>
+                                <TableCell className="text-center">{row.job_status}</TableCell>
                             </TableRow>
                         ))}
                     </TableBody>

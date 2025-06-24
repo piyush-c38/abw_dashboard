@@ -21,10 +21,10 @@ export default function Home() {
               <Image
                 src="/logo_506.png"
                 alt="Logo_506"
-                width={120}
-                height={120}
+                width={200}
+                height={200}
               />
-              <div className = "text-2xl text-shadow-black"> 506 Army Base Workshop</div>
+              <div className = "text-4xl text-shadow-black"> 506 Army Base Workshop</div>
             </div>
           </div>
           <div className="flex justify-center">
