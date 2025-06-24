@@ -15,16 +15,16 @@ export default function Home() {
           backgroundPosition: "center"
         }}>
         <div className="absolute inset-0 bg-black/20 z-0" />
-        <div className="w-3/4 h-3/4 bg-gray-50 z-10 rounded-2xl flex flex-col justify-around">
+        <div className="w-3/4 h-3/4 bg-gray-50 z-10 rounded-2xl flex flex-col justify-center gap-24">
           <div className="flex justify-center w-full">
-            <div className="w-auto flex justify-center items-center gap-10 p-3">
+            <div className="w-auto flex flex-col md:flex-row justify-center items-center gap-10 p-3">
               <Image
                 src="/logo_506.png"
                 alt="Logo_506"
                 width={200}
                 height={200}
               />
-              <div className = "text-4xl text-shadow-black"> 506 Army Base Workshop</div>
+              <div className = "text-2xl md:text-4xl text-shadow-black text-center"> 506 Army Base Workshop</div>
             </div>
           </div>
           <div className="flex justify-center">
