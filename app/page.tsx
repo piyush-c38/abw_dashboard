@@ -29,8 +29,8 @@ export default function Home() {
           </div>
           <div className="flex justify-center">
             <div className="flex flex-wrap gap-10 justify-center">
-              <Button className="w-50 h-15 text-xl" onClick={() => router.push("/todayjob")}>Today's Job</Button>
-              <Button className="w-50 h-15 text-xl" onClick={() => router.push("/daysummary")}>Day Summary</Button>
+              <Button className="w-50 h-15 text-xl bg-[#153c49] text-white hover:bg-[#0d2933]" onClick={() => router.push("/todayjob")}>Today's Job</Button>
+              <Button className="w-50 h-15 text-xl bg-[#153c49] text-white hover:bg-[#0d2933]" onClick={() => router.push("/daysummary")}>Day Summary</Button>
             </div>
           </div>
         </div>
