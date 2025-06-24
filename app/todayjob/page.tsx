@@ -8,10 +8,12 @@ import {
     TableHead,
     TableHeader,
     TableRow,
-} from "@/components/ui/table"
+} from "@/components/ui/table";
+import { CalendarClock, ClockFading } from 'lucide-react';
 
 export default function TodayJob() {
     const [data, setData] = useState([]);
+    const [currentTime, setCurrentTime] = useState(new Date());
 
     const fetchData = async () => {
         try {
@@ -28,10 +30,22 @@ export default function TodayJob() {
         return () => clearInterval(interval);
     }, []);
 
+    useEffect(() => {
+        const timer = setInterval(() => setCurrentTime(new Date()), 1000);
+        return () => clearInterval(timer);
+    }, []);
+
     return (
         <div className="flex flex-col w-screen h-screen justify-start items-center pt-40 gap-10">
+            <div className="fixed top-0 left-0 w-full z-50 flex justify-center">
+                <h2 className="text-4xl bg-[#c18d00] text-white flex gap-2 pt-2 pb-3 px-6 rounded-b-2xl justify-center items-center">
+                    <CalendarClock size={38} />
+                    {currentTime.toLocaleString()}
+                    <ClockFading size={38} />
+                </h2>
+            </div>
             <div className="">
-                <h2 className="text-4xl text-black">Current Job Status</h2>
+                <h2 className="text-4xl text-black text-center">Current Job Status</h2>
             </div>
             <div className="bg-gray-50 w-2/3 p-4 rounded-sm shadow-sm">
                 <Table>
@@ -52,7 +66,7 @@ export default function TodayJob() {
                                 <TableCell className="text-center py-4">{row.process_id}</TableCell>
                                 <TableCell className="text-center py-4">{row.count}</TableCell>
                                 <TableCell
-                                    className={`text-center py-4 ${row.job_status == 1 ? "text-green-600" : "text-red-600" }`}
+                                    className={`text-center py-4 ${row.job_status == 1 ? "text-green-600" : "text-red-600"}`}
                                 >
                                     {row.job_status == 1 ? "Running" : "Completed"}
                                 </TableCell>

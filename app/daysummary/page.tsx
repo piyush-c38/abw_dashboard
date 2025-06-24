@@ -1,18 +1,16 @@
 "use client";
+
 import { zodResolver } from "@hookform/resolvers/zod";
 import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
 import { useForm } from "react-hook-form";
-import { toast } from "sonner";
 import { z } from "zod";
-
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -28,7 +26,7 @@ import { useRouter } from "next/navigation";
 
 const FormSchema = z.object({
   dob: z.date({
-    required_error: "A date of birth is required.",
+    required_error: "Date is required",
   }),
 });
 
@@ -39,7 +37,8 @@ export default function DaySummary() {
   });
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
-    console.log(JSON.stringify(data, null, 2));
+    const dateStr = format(data.dob, "yyyy-MM-dd");
+    router.push(`/daysummary/result?date=${dateStr}`);
   }
 
   return (
@@ -111,7 +110,7 @@ export default function DaySummary() {
                     </FormItem>
                   )}
                 />
-                <Button type="submit" className="bg-[#153c49] text-white hover:bg-[#0d2933]">Submit</Button>
+                <Button type="submit" className="bg-[#1b4e5f] text-white hover:bg-[#0d2933]">Submit</Button>
               </form>
             </Form>
           </div>
