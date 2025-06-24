@@ -1,5 +1,5 @@
 "use client";
-import {useState, useEffect} from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import {
     Table,
@@ -29,15 +29,15 @@ export default function TodayJob() {
     }, []);
 
     return (
-        <div className="flex w-screen h-screen justify-center items-center">
-            <div className="bg-gray-50 w-2/3 p-4 rounded-xl">
-                <div>
-
-                </div>
+        <div className="flex flex-col w-screen h-screen justify-start items-center pt-40 gap-10">
+            <div className="">
+                <h2 className="text-4xl text-black">Current Job Status</h2>
+            </div>
+            <div className="bg-gray-50 w-2/3 p-4 rounded-sm shadow-sm">
                 <Table>
                     <TableHeader>
                         <TableRow>
-                            <TableHead className="w-[100px] text-center">Table ID</TableHead>
+                            <TableHead className="w-[100px] text-center py-4">Table ID</TableHead>
                             <TableHead className="text-center">Current Job</TableHead>
                             <TableHead className="text-center">Current Process</TableHead>
                             <TableHead className="text-center">Product Count</TableHead>
@@ -45,13 +45,17 @@ export default function TodayJob() {
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        {data.map((row:any) => (
-                            <TableRow key={row.id}>
-                                <TableCell className="text-center">{row.table_id}</TableCell>
-                                <TableCell className="text-center">{row.job_id}</TableCell>
-                                <TableCell className="text-center">{row.process_id}</TableCell>
-                                <TableCell className="text-center">{row.count}</TableCell>
-                                <TableCell className="text-center">{row.job_status}</TableCell>
+                        {data.map((row: any) => (
+                            <TableRow key={row.id} >
+                                <TableCell className="text-center py-4">{row.table_id}</TableCell>
+                                <TableCell className="text-center py-4">{row.job_id}</TableCell>
+                                <TableCell className="text-center py-4">{row.process_id}</TableCell>
+                                <TableCell className="text-center py-4">{row.count}</TableCell>
+                                <TableCell
+                                    className={`text-center py-4 ${row.job_status == 1 ? "text-green-600" : "text-red-600" }`}
+                                >
+                                    {row.job_status == 1 ? "Running" : "Completed"}
+                                </TableCell>
                             </TableRow>
                         ))}
                     </TableBody>
