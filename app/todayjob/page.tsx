@@ -67,7 +67,7 @@ export default function TodayJob() {
                 </h2>
             </div>
             <div className="">
-                <h2 className="text-4xl text-[#153c49] font-semibold text-center">Current Job Status</h2>
+                <h2 className="text-4xl text-[#153c49] font-semibold text-center">Today's Job Status</h2>
             </div>
             <div className="bg-gray-50 w-2/3 p-4 rounded-sm shadow-sm">
                 <Table>
