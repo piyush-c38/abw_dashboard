@@ -13,20 +13,42 @@ import { CalendarClock, ClockFading } from 'lucide-react';
 
 export default function TodayJob() {
     const [data, setData] = useState([]);
+    const [machineStatus, setMachineStatus] = useState<Record<string, string>>({});
     const [currentTime, setCurrentTime] = useState(new Date());
 
+    // Fetch latest job/process data
     const fetchData = async () => {
         try {
             const res = await axios.get("http://localhost:5000/api/latest-per-table");
             setData(res.data);
+            console.log(res.data);
         } catch (err) {
             console.error("Error fetching data:", err);
         }
     };
 
+    // Fetch machine status (ON/OFF)
+    const fetchMachineStatus = async () => {
+        try {
+            const res = await axios.get("http://localhost:5000/api/machine-status");
+            // Convert array to object: { [table_id]: status }
+            const statusMap: Record<string, string> = {};
+            res.data.forEach((row: { table_id: string; status: string }) => {
+                statusMap[row.table_id] = row.status;
+            });
+            setMachineStatus(statusMap);
+        } catch (err) {
+            console.error("Error fetching machine status:", err);
+        }
+    };
+
     useEffect(() => {
         fetchData();
-        const interval = setInterval(fetchData, 1000); // refresh every 1 sec
+        fetchMachineStatus();
+        const interval = setInterval(() => {
+            fetchData();
+            fetchMachineStatus();
+        }, 1000); // refresh every 1 sec
         return () => clearInterval(interval);
     }, []);
 
@@ -38,7 +60,7 @@ export default function TodayJob() {
     return (
         <div className="flex flex-col w-screen h-screen justify-start items-center pt-40 gap-10">
             <div className="fixed top-0 left-0 w-full z-50 flex justify-center">
-                <h2 className="text-4xl bg-[#c18d00] text-white flex gap-2 pt-2 pb-3 px-6 rounded-b-2xl justify-center items-center">
+                <h2 className="text-4xl bg-[#c18d00] text-white shadow-md flex gap-2 pt-2 pb-3 px-6 rounded-b-2xl justify-center items-center">
                     <CalendarClock size={38} />
                     {currentTime.toLocaleString()}
                     <ClockFading size={38} />
@@ -56,6 +78,7 @@ export default function TodayJob() {
                             <TableHead className="text-center">Current Process</TableHead>
                             <TableHead className="text-center">Product Count</TableHead>
                             <TableHead className="text-center">Job Status</TableHead>
+                            <TableHead className="text-center">Machine Status</TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody>
@@ -69,6 +92,9 @@ export default function TodayJob() {
                                     className={`text-center py-4 ${row.job_status == 1 ? "text-green-600" : "text-red-600"}`}
                                 >
                                     {row.job_status == 1 ? "Running" : "Completed"}
+                                </TableCell>
+                                <TableCell className={`text-center py-4 ${machineStatus[row.table_id] === "ON" ? "text-green-600" : "text-red-600"}`}>
+                                    {machineStatus[row.table_id] === "ON" ? "Connected" : "Disconnected"}
                                 </TableCell>
                             </TableRow>
                         ))}
