@@ -57,10 +57,10 @@ export default function DaySummary() {
             <Image
               src="/logo_506.png"
               alt="Logo_506"
-              width={150}
-              height={150}
+              width={160}
+              height={160}
             />
-            <div className="text-2xl md:text-3xl text-shadow-black text-center">
+            <div className="text-2xl md:text-4xl font-semibold text-[#153c49] text-shadow-[#153c49] text-center">
               506 Army Base Workshop
             </div>
           </div>

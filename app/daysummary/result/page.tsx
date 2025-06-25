@@ -47,9 +47,9 @@ export default function Result() {
     }, [date]);
 
     return (
-        <div className="flex flex-col w-screen h-screen justify-start items-center pt-40 gap-10">
+        <div className="flex flex-col w-screen h-screen justify-start items-center pt-40 gap-10 bg-[#effbfc] border-8 border-[#153c49]">
             <div>
-                <h2 className="text-4xl text-black flex gap-2 mb-4"><CalendarClock size={38} /> {date}</h2>
+                <h2 className="flex gap-2 text-4xl text-[#153c49] font-semibold text-center"><CalendarClock size={38} /> {date}</h2>
             </div>
             <div className="bg-gray-50 w-2/3 p-4 rounded-sm shadow-sm">
                 <Table>

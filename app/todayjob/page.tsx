@@ -58,16 +58,16 @@ export default function TodayJob() {
     }, []);
 
     return (
-        <div className="flex flex-col w-screen h-screen justify-start items-center pt-40 gap-10">
+        <div className="flex flex-col w-screen h-screen justify-start items-center pt-40 gap-10 bg-[#effbfc] border-8 border-[#153c49]">
             <div className="fixed top-0 left-0 w-full z-50 flex justify-center">
-                <h2 className="text-4xl bg-[#c18d00] text-white shadow-md flex gap-2 pt-2 pb-3 px-6 rounded-b-2xl justify-center items-center">
+                <h2 className="text-4xl bg-[#153c49] text-white shadow-md flex gap-2 pt-2 pb-3 px-6 rounded-b-2xl justify-center items-center">
                     <CalendarClock size={38} />
                     {currentTime.toLocaleString()}
                     <ClockFading size={38} />
                 </h2>
             </div>
             <div className="">
-                <h2 className="text-4xl text-black text-center">Current Job Status</h2>
+                <h2 className="text-4xl text-[#153c49] font-semibold text-center">Current Job Status</h2>
             </div>
             <div className="bg-gray-50 w-2/3 p-4 rounded-sm shadow-sm">
                 <Table>
